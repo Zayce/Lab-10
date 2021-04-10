@@ -61,7 +61,6 @@ public class MergeSort{
                 r++;
                 continue;
             }
-
             else if (isIndexLast(rightArray, r)){
                 mergedArray[i] = leftArray[l];
                 l++;
@@ -73,7 +72,6 @@ public class MergeSort{
                     mergedArray[i] = leftArray[l];
                     l++;
                 }
-                
                 else if (leftArray[l] > rightArray[r]){
                     mergedArray[i] = rightArray[r];
                     r++;
