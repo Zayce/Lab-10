@@ -82,11 +82,9 @@ public class MergeSort{
     }
 
     public static boolean isIndexLast (int[] array, int index){
-        if (index >= array.length){
+        if (index >= array.length)
             return true;
-        }
-        else{
-            return false;    
-        }
+        else
+        return false;    
     }
 }
