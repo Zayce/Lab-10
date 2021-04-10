@@ -6,6 +6,8 @@
  ** Compiler:JDK 15.0.1
  **/
 
+import java.util.Arrays;
+
 public class MergeSort{
     public static void main(String[] args) {
         int [] list1 = genArray(20);
@@ -26,7 +28,7 @@ public class MergeSort{
             // merges to lists ie. firstHalf and second half into a sorted list
             merge(firstHalf, secondHalf, list);
         }   //base case
-        }
+    }
 
     // generates and returns an array of random numbers of the given size
     public static int[] genArray(int size){
@@ -50,66 +52,41 @@ public class MergeSort{
             destLs[i-start] = sourceLs[i];
     }
 
-    public static boolean isSortedAscend(int[] array){
-        int token = array[0];
-        for (int i = 1; i < array.length; i++){
-            //If number to the right of token is smaller, then this is not an ascending array
-            if (array[i] < token){
-                return false;
-            }
-            else{
-                token = array[i];
-            }
-        }
-        //It is an ascending array if the ith number is always smaller than the (i+1)th number.
-        return true;
-    }
-
-    public static int[] swapNeighbor(int[] array){
-        for(int i = 0; i < array.length - 1; i++){
-            //Checks if current number chosen is bigger than the number right to it
-            if(array[i] > array[i+1]){
-
-                //Bitwise XOR Swapping algorithm 
-                array[i] = array[i] ^ array[i+1];
-                array[i+1] = array[i] ^ array[i+1];
-                array[i] = array[i] ^ array[i+1];
-            }
-        }
-        return array;
-    }
-
     public static int[] merge(int[] leftArray, int[] rightArray, int[] mergedArray){
+
         //Code below appends the second array to the first array
         for (int i = 0, l = 0, r = 0; i < mergedArray.length; i++){
-            if (leftArray[l] <= rightArray[r]){
-                mergedArray[i] = leftArray[l];
-                if (l < leftArray.length - 1)
-                    l++;
-                else
-                    mergedArray[i] = rightArray[r];
-            }
-            if (leftArray[l] > rightArray[r]){
+            if (isIndexLast(leftArray, l)){
                 mergedArray[i] = rightArray[r];
-                if (r < rightArray.length - 1)
-                    r++;
-                else
+                r++;
+                continue;
+            }
+
+            else if (isIndexLast(rightArray, r)){
+                mergedArray[i] = leftArray[l];
+                l++;
+                continue;
+            }
+
+            else{
+                if (leftArray[l] <= rightArray[r]){
                     mergedArray[i] = leftArray[l];
+                    l++;
+                }
+                
+                else if (leftArray[l] > rightArray[r]){
+                    mergedArray[i] = rightArray[r];
+                    r++;
+                }
             }
         }
-
-
-
-
-        //If merged array not sorted, calls swapNeighbor method and loops until it is sorted
-        //while(isSortedAscend(mergedArray) == false){
-        //    swapNeighbor(mergedArray);
-        //}
-
         return mergedArray;
     }
 
-    public static void sort(){
-
+    public static boolean isIndexLast (int[] array, int index){
+        if (index >= array.length)
+            return true;
+        else
+            return false;    
     }
-    }
+}
